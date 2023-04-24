@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Add Device</title>
+</head>
+<body>
+    <h1>Add Device</h1>
+    <form method="POST" action="{{ url_for('add_device') }}">
+        <label for="device_name">Device Name:</label>
+        <input type="text" name="device_name"><br><br>
+
+        <label for="device_type">Device Type:</label>
+        <select name="device_type">
+            <option value="Dexcom G7">Dexcom G7</option>
+            <option value="Dexcom G6">Dexcom G6</option>
+            <option value="Dexcom G5">Dexcom G5</option>
+            <option value="Omnipod Pump">Omnipod Pump</option>
+            <option value="Medtronic Pump">Medtronic Pump</option>
+            <option value="Mobile Receiver">Mobile Receiver</option>
+            <option value="Phone">Phone</option>
+            <option value="Tablet">Tablet</option>
+        </select><br><br>
+
+        <label for="user_id">User ID:</label>
+        <select name="user_id">
+            {% for user in users %}
+                <option value="{{ user.UserID }}">{{ user.UserID }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <input type="submit" value="Add Device">
+    </form>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

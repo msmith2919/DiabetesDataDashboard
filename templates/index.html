@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Data Dashboard</title>
+</head>
+<body>
+<!--<iframe style="background: #F1F5F4;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);width: 100vw;height: 100vh;"  src="https://charts.mongodb.com/charts-project-0-uevlz/embed/dashboards?id=63fcafac-d57f-4ec8-8ba2-6ba177fdc5d5&theme=light&autoRefresh=true&maxDataAge=3600&showTitleAndDesc=true&scalingWidth=fixed&scalingHeight=fixed"></iframe>-->
+<h1>User List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>User Type</th>
+        <th>Permissions</th>
+        <th>Age</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.Name }}</td>
+        <td>{{ user.Email }}</td>
+        <td>{{ user.UserType }}</td>
+        <td>{{ user.Permissions }}</td>
+        <td>{{ user.Age }}</td>
+        <td>
+            <a href="{{ url_for('edit_user', id=user.UserID) }}">Edit</a>
+            <a href="{{ url_for('delete_user', id=user.UserID) }}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<button><a href="{{ url_for('add_user') }}">Add User</a></button>
+
+<h1>Device List</h1>
+<table>
+    <tr>
+        <th>Device ID</th>
+        <th>Device Name</th>
+        <th>Device Type</th>
+        <th>User ID</th>
+        <th>Actions</th>
+    </tr>
+    {% for device in devices %}
+    <tr>
+        <td>{{ device.DeviceID }}</td>
+        <td>{{ device.DeviceName }}</td>
+        <td>{{ device.DeviceType }}</td>
+        <td>{{ device.UserID }}</td>
+        <td>
+            <a href="{{ url_for('edit_device', device_id=device.DeviceID) }}">Edit</a>
+            <form action="{{ url_for('delete_device', device_id=device.DeviceID) }}" method="POST">
+                <button class="delete-button" type="submit" formmethod="POST" onclick="if(!confirm('Are you sure you want to delete {{ device.DeviceName }} assigned to {{ device.UserID }}?')) { return false; } console.log('Deleting record...');">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<button><a href="{{ url_for('add_device') }}">Add Device</a></button>
+
+<h1>Treatment Profile List</h1>
+<table>
+    <tr>
+        <th>Profile ID</th>
+        <th>Carb Ratio</th>
+        <th>ISF</th>
+        <th>Basal Rate</th>
+        <th>Target BG</th>
+        <th>User ID</th>
+        <th>Actions</th>
+    </tr>
+    {% for profile in treatment_profiles %}
+    <tr>
+        <td>{{ profile.ProfileID }}</td>
+        <td>{{ profile.CarbRatio }}</td>
+        <td>{{ profile.ISF }}</td>
+        <td>{{ profile.BasalRate }}</td>
+        <td>{{ profile.TargetBG }}</td>
+        <td>{{ profile.UserID }}</td>
+        <td>
+            <a href="{{ url_for('edit_treatment_profile', treatment_id=profile.ProfileID) }}">Edit</a>
+            <form action="{{ url_for('delete_treatment_profile', treatment_id=profile.ProfileID) }}" method="POST">
+                <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this treatment profile?')">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<button><a href="{{ url_for('add_treatment_profile') }}">Add Treatment Profile</a></button>
+</body>
+</html>
+

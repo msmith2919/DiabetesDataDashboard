@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Add Treatment Profile</title>
+  </head>
+  <body>
+    <h1>Add Treatment Profile</h1>
+    <p>Enter your therapy settings to gain accurate predictions and insight.</p>
+    <form action="{{ url_for('add_treatment_profile') }}" method="POST">
+      <label for="carb_ratio">Carb Ratio:</label>
+      <input type="text" name="carb_ratio" id="carb_ratio" placeholder="Carb ratio in g/U"><br><br>
+      <label for="isf">Insulin Sensitivity (ISF):</label>
+      <input type="text" name="isf" id="isf" placeholder="Insulin sensitivity in mg/dL/U"><br><br>
+      <label for="basal_rate">Basal Rate:</label>
+      <input type="text" name="basal_rate" id="basal_rate" placeholder="Basal rate in U/hr"><br><br>
+      <label for="target_bg">Target BG:</label>
+      <input type="number" name="target_bg" id="target_bg" placeholder="Target BG in mg/dL"><br><br>
+      <label for="user_id">User ID:</label>
+      <select name="user_id" id="user_id">
+        {% for user in users %}
+          <option value="{{ user.UserID }}">{{ user.Name }}</option>
+        {% endfor %}
+      </select><br><br>
+      <input type="submit" value="Add Treatment Profile">
+    </form>
+  </body>
+</html>

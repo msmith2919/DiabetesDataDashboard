@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Device</title>
+  </head>
+  <body>
+    <h1>Edit Device</h1>
+    <form method="POST" action="{{ url_for('edit_device', device_id=device.DeviceID) }}">
+
+      <label for="device_name">Device Name:</label>
+      <input type="text" name="device_name" value="{{ device.DeviceName }}"><br><br>
+
+      <label for="device_type">Device Type:</label>
+      <select id="device_type" name="device_type">
+        <option value="Dexcom G7" {% if device.DeviceType == "Dexcom G7" %}selected{% endif %}>Dexcom G7</option>
+        <option value="Dexcom G6" {% if device.DeviceType == "Dexcom G6" %}selected{% endif %}>Dexcom G6</option>
+        <option value="Dexcom G5" {% if device.DeviceType == "Dexcom G5" %}selected{% endif %}>Dexcom G5</option>
+        <option value="Omnipod Pump" {% if device.DeviceType == "Omnipod Pump" %}selected{% endif %}>Omnipod Pump</option>
+        <option value="Medtronic Pump" {% if device.DeviceType == "Medtronic Pump" %}selected{% endif %}>Medtronic Pump</option>
+        <option value="Mobile Receiver" {% if device.DeviceType == "Mobile Receiver" %}selected{% endif %}>Mobile Receiver</option>
+        <option value="Phone" {% if device.DeviceType == "Phone" %}selected{% endif %}>Phone</option>
+        <option value="Tablet" {% if device.DeviceType == "Tablet" %}selected{% endif %}>Tablet</option>
+      </select><br><br>
+
+      <label for="user_id">User ID:</label>
+      <select name="user_id">
+        {% for user in users %}
+        <option value="{{ user.UserID }}" {% if device.UserID == user.UserID %}selected{% endif %}>{{ user.UserID }}</option>
+        {% endfor %}
+      </select><br><br>
+
+      <input type="submit" value="Update Device">
+    </form>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+  </body>
+</html>

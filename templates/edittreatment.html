@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Edit Treatment Profile</title>
+  </head>
+  <body>
+    <h1>Edit Treatment Profile</h1>
+    <form action="{{ url_for('edit_treatment_profile', treatment_id=treatment.id) }}" method="POST" name="TreatmentProfileForm">
+      <label for="carb_ratio">Carb Ratio:</label>
+      <input type="text" name="carb_ratio" id="carb_ratio" value="{{ treatment.carb_ratio }}"><br><br>
+      <label for="isf">Insulin Sensitivity (ISF):</label>
+      <input type="text" name="isf" id="isf" value="{{ treatment.isf }}"><br><br>
+      <label for="basal_rate">Basal Rate:</label>
+      <input type="text" name="basal_rate" id="basal_rate" value="{{ treatment.basal_rate }}"><br><br>
+      <label for="target_bg">Target BG:</label>
+      <input type="number" name="target_bg" id="target_bg" value="{{ treatment.target_bg }}"><br><br>
+      <input type="submit" value="Update Treatment Profile">
+    </form>
+  </body>
+</html>
