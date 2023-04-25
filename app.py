@@ -76,6 +76,7 @@ class TreatmentProfile(db.Model):
     UserID = db.Column(db.String(50), db.ForeignKey('Users.UserID'))
     CreateDate = db.Column(db.Date)
 
+# Home
 @app.route('/')
 def index():
     users = User.query.all()
@@ -84,6 +85,7 @@ def index():
     manual_entries = list(mongo_db.manualentries.find())
     return render_template('index.html', users=users, devices=devices, treatment_profiles=treatment_profiles, manual_entries=manual_entries)
 
+# Add User
 @app.route('/add', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
@@ -100,6 +102,7 @@ def add_user():
         return redirect('/')
     return render_template('add.html')
 
+# Edit User
 @app.route('/edit/<string:id>', methods=['GET', 'POST'])
 def edit_user(id):
     user = User.query.filter_by(UserID=id).first()
