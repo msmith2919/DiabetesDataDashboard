@@ -35,9 +35,9 @@
     </tbody>
   </table>
 <form action="/addmanualentry" method="POST">
-  <button type="submit" name="note_type" value="Exercise 🏀">Add Exercise Note 🏀</button>
-  <button type="submit" name="note_type" value="Sick 🤒">Add Sick Note 🤒</button>
-  <button type="submit" name="note_type" value="Custom">Add Custom Note 🔍</button>
+  <button class="entry-button" type="submit" name="note_type" value="Exercise 🏀">Add Exercise Note 🏀</button>
+  <button class="entry-button" type="submit" name="note_type" value="Sick 🤒">Add Sick Note 🤒</button>
+  <button class="entry-button" type="submit" name="note_type" value="Custom">Add Custom Note 🔍</button>
   <input type="text" name="note_text" placeholder="Enter custom note...">
 </form>
 
@@ -65,7 +65,7 @@
         <td>{{ user.Age }}</td>
         <td>
             <a href="{{ url_for('edit_user', id=user.UserID) }}">Edit</a>
-            <a href="{{ url_for('delete_user', id=user.UserID) }}">Delete</a>
+            <a href="{{ url_for('delete_user', id=user.UserID) }}" onclick="return confirm('Are you sure you want to delete the user {{ user.Name }}?')">Delete</a>
         </td>
     </tr>
     {% endfor %}

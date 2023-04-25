@@ -85,7 +85,7 @@ form select {
 
 /* Button styles */
 button {
-  background-color: #66a37d;
+  background-color: #FF5733 ;
   border-radius: 8px;
   color: #fff;
   border: none;
@@ -96,7 +96,17 @@ button {
 }
 
 button.delete-button {
-  background-color: #d11a2a;
+  background-color: #C70039;
+  border-radius: 8px;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+button.entry-button {
+  background-color: #FFC300;
   border-radius: 8px;
   color: #fff;
   border: none;
