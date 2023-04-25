@@ -1,12 +1,51 @@
 # Diabetes Data Dashboard
 from datetime import datetime
+
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-import uuid
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://test:1234@CIT-SP-23\SQLEXPRESS/Nightscout?driver=ODBC+Driver+17+for+SQL+Server'
 db = SQLAlchemy(app)
+
+# BEGIN TEST MONGO CODE
+
+mongo_client = MongoClient("mongodb+srv://pythonuser:HHYoB8i8QZjT7G6U@diabetes-data.wvlkz0f.mongodb.net/test?retryWrites=true&w=majority")
+mongo_db = mongo_client.test
+
+# Add manual entry to MongoDB
+@app.route('/addmanualentry', methods=['POST'])
+def add_manual_entry():
+    note_type = request.form['note_type']
+    note_text = request.form['note_text']
+    entry_time = datetime.now()
+    manual_entry = {
+        'note_type': note_type,
+        'note_text': note_text,
+        'entry_time': entry_time
+    }
+    mongo_db.manualentries.insert_one(manual_entry)
+    return redirect('/')
+
+@app.route('/manualentries')
+def manual_entries():
+    manual_entries = list(mongo_db.manualentries.find())
+    return render_template('index.html', manual_entries=manual_entries)
+# Delete a Manual Entry
+@app.route('/delete_manual_entry/<entry_id>/delete', methods=['POST'])
+def delete_manual_entry(entry_id):
+    if request.method == 'POST':
+        # convert the entry_id to ObjectId
+        entry_id = ObjectId(entry_id)
+
+        # delete the entry from the database
+        mongo_db.manualentries.delete_one({'_id': entry_id})
+
+    return redirect('/')
+
+# END MANUAL ENTRY CODE FOR MONGODB
 
 class User(db.Model):
     __tablename__ = 'Users'
@@ -42,7 +81,8 @@ def index():
     users = User.query.all()
     devices = Device.query.all()
     treatment_profiles = TreatmentProfile.query.all()
-    return render_template('index.html', users=users, devices=devices, treatment_profiles=treatment_profiles)
+    manual_entries = list(mongo_db.manualentries.find())
+    return render_template('index.html', users=users, devices=devices, treatment_profiles=treatment_profiles, manual_entries=manual_entries)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_user():
@@ -164,6 +204,6 @@ def delete_treatment_profile(treatment_id):
     db.session.delete(treatment)
     db.session.commit()
     return redirect('/')
-b
+
 if __name__ == '__main__':
     app.run(debug=True)
