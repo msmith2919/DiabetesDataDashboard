@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://test:1234@CIT-SP-23\SQLEXPRESS/Nightscout?driver=ODBC+Driver+17+for+SQL+Server'
 db = SQLAlchemy(app)
 
-# BEGIN TEST MONGO CODE
+# BEGIN MONGO CODE
 
 mongo_client = MongoClient("mongodb+srv://pythonuser:HHYoB8i8QZjT7G6U@diabetes-data.wvlkz0f.mongodb.net/test?retryWrites=true&w=majority")
 mongo_db = mongo_client.test

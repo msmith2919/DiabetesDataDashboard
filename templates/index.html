@@ -8,37 +8,37 @@
 <!--<iframe style="background: #F1F5F4;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);width: 100vw;height: 100vh;"  src="https://charts.mongodb.com/charts-project-0-uevlz/embed/dashboards?id=63fcafac-d57f-4ec8-8ba2-6ba177fdc5d5&theme=light&autoRefresh=true&maxDataAge=3600&showTitleAndDesc=true&scalingWidth=fixed&scalingHeight=fixed"></iframe>-->
 
 <h2>Manual Entries</h2>
-  <table>
+<table>
     <thead>
-      <tr>
+    <tr>
         <th>Note Type</th>
         <th>Note Text</th>
         <th>Entry Time</th>
-          <th>Actions</th>
-      </tr>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
-      {% for entry in manual_entries %}
-        <tr>
-          <td>{{ entry.note_type }}</td>
-          <td>{{ entry.note_text }}</td>
-          <td>{{ entry.entry_time }}</td>
-            <td>
-                <form action="/delete_manual_entry/{{ entry._id }}/delete" method="post">
-    <input type="hidden" name="_method" value="DELETE">
-    <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</button>
-</form>
+    {% for entry in manual_entries %}
+    <tr>
+        <td>{{ entry.note_type }}</td>
+        <td>{{ entry.note_text }}</td>
+        <td>{{ entry.entry_time }}</td>
+        <td>
+            <form action="/delete_manual_entry/{{ entry._id }}/delete" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</button>
+            </form>
 
-            </td>
-        </tr>
-      {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
     </tbody>
-  </table>
+</table>
 <form action="/addmanualentry" method="POST">
-  <button class="entry-button" type="submit" name="note_type" value="Exercise 🏀">Add Exercise Note 🏀</button>
-  <button class="entry-button" type="submit" name="note_type" value="Sick 🤒">Add Sick Note 🤒</button>
-  <button class="entry-button" type="submit" name="note_type" value="Custom">Add Custom Note 🔍</button>
-  <input type="text" name="note_text" placeholder="Enter custom note...">
+    <button class="entry-button" type="submit" name="note_type" value="Exercise 🏀">Add Exercise Note 🏀</button>
+    <button class="entry-button" type="submit" name="note_type" value="Sick 🤒">Add Sick Note 🤒</button>
+    <button class="entry-button" type="submit" name="note_type" value="Custom">Add Custom Note 🔍</button>
+    <input type="text" name="note_text" placeholder="Enter custom note...">
 </form>
 
 
