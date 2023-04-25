@@ -1,17 +1,17 @@
 # Diabetes Data Dashboard
 from datetime import datetime
-
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
+# SQL Connection Code
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://test:1234@CIT-SP-23\SQLEXPRESS/Nightscout?driver=ODBC+Driver+17+for+SQL+Server'
 db = SQLAlchemy(app)
 
-# BEGIN MONGO CODE
-
+# Begin MongoDB Code
+# MongoDB URI
 mongo_client = MongoClient("mongodb+srv://pythonuser:HHYoB8i8QZjT7G6U@diabetes-data.wvlkz0f.mongodb.net/test?retryWrites=true&w=majority")
 mongo_db = mongo_client.test
 
